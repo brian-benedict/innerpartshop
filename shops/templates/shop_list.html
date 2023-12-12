@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h1>Your Shops</h1>
+    <p><a href="{% url 'register_shop' %}">Register a new shop</a></p>
+    {% if user_shops %}
+      {% for shop in user_shops %}
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">{{ shop.name }}</h5>
+            <p class="card-text">{{ shop.description }}</p>
+            <p class="card-text"><strong>Location:</strong> {{ shop.location }}</p>
+            <!-- Add more shop details as needed -->
+          </div>
+
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>You don't have any shops yet. <a href="{% url 'register_shop' %}">Register a new shop</a></p>
+    {% endif %}
+    {% if user_shop %}
+      <h2>Your Associated Shop</h2>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ user_shop.name }}</h5>
+          <p class="card-text">{{ user_shop.description }}</p>
+          <p class="card-text"><strong>Location:</strong> {{ user_shop.location }}</p>
+          <!-- Add more details about the associated shop as needed -->
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
+

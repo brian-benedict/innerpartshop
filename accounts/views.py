@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+from .models import UserProfile
 
 
 
@@ -12,12 +13,28 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
+            # Create a UserProfile and associate it with the user
+            UserProfile.objects.create(user=user, username=user.username)
             login(request, user)
             messages.success(request, 'Registration successful.')
-            return redirect('home')  # Replace 'home' with your home URL
+            return redirect('home')
     else:
         form = UserCreationForm()
     return render(request, 'accounts/register.html', {'form': form})
+
+
+
+# def register(request):
+#     if request.method == 'POST':
+#         form = UserCreationForm(request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             login(request, user)
+#             messages.success(request, 'Registration successful.')
+#             return redirect('home')  # Replace 'home' with your home URL
+#     else:
+#         form = UserCreationForm()
+#     return render(request, 'accounts/register.html', {'form': form})
 
 def user_login(request):
     if request.method == 'POST':
@@ -27,7 +44,7 @@ def user_login(request):
         if user:
             login(request, user)
             messages.success(request, 'Login successful.')
-            return redirect('home')  # Replace 'home' with your home URL
+            return redirect('shop-list')  # Replace 'home' with your home URL
         else:
             messages.error(request, 'Invalid username or password.')
     return render(request, 'accounts/login.html')
@@ -35,7 +52,7 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     messages.success(request, 'Logout successful.')
-    return redirect('home')  # Replace 'home' with your home URL
+    return redirect('login')  # Replace 'home' with your home URL
 
 
 
