@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['.vercel.app', '.now.sh','127.0.0.1']
 
 # Application definition
-
+# AUTH_USER_MODEL = 'accounts.UserProfile'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
     'support',
     'settings',
     'backup',
@@ -53,7 +54,6 @@ INSTALLED_APPS = [
     'pos',
     'notifications',
     'subscriptions',
-    'accounts',
     'inventory',
 ]
 
@@ -128,6 +128,17 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Internationalization
